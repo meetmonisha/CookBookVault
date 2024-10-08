@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import recipesData from './RecipeList'; // Renamed to avoid confusion
 import './App.css';  // Import the CSS file
 
 function App() {
-  const [recipes, setRecipes] = useState(recipesData);  // Manage the global recipes state
+  // Load recipes from localStorage or use default recipesData
+  const [recipes, setRecipes] = useState(() => {
+    const storedRecipes = localStorage.getItem('recipes');
+    return storedRecipes ? JSON.parse(storedRecipes) : recipesData;
+  });
+  
   const [ingre, setIngre] = useState([]);
+
+  useEffect(() => {
+    // Save recipes to localStorage whenever they change
+    localStorage.setItem('recipes', JSON.stringify(recipes));
+  }, [recipes]);
 
   function handleClick(id) {
     if (ingre.length > 0 && ingre[0].id === id) {

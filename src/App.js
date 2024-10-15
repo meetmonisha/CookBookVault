@@ -10,7 +10,7 @@ function App() {
   });
   
   const [ingre, setIngre] = useState([]);
-
+//Effects needed to be prformed
   useEffect(() => {
     // Save recipes to localStorage whenever they change
     localStorage.setItem('recipes', JSON.stringify(recipes));
